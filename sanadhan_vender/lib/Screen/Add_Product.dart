@@ -5603,9 +5603,11 @@ class _AddProductState extends State<AddProduct> with TickerProviderStateMixin {
           await buttonController!.reverse();
 
           setSnackbar(msg);
+
         } else {
           await buttonController!.reverse();
           setSnackbar(msg);
+          Navigator.pop(context);
         }
       } on TimeoutException catch (_) {
         setSnackbar(

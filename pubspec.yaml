@@ -62,7 +62,7 @@ dependencies:
   image_cropper: ^1.4.1
   http_parser: ^4.0.0
   location: ^4.3.0
-  geocoder: ^0.2.1
+  geocoder: any
   custom_dialog: ^0.0.2
   google_maps_flutter: ^2.0.6
   flutter_polyline_points: ^1.0.0

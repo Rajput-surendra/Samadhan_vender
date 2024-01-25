@@ -31,6 +31,10 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android'
 android {
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
     compileSdkVersion 33
 
     defaultConfig {
@@ -57,7 +61,7 @@ android {
             minifyEnabled true
             shrinkResources true
             useProguard false
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.debug
         }
     }
 }

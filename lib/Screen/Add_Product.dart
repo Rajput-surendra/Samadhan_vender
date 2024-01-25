@@ -2096,7 +2096,7 @@ class _AddProductState extends State<AddProduct> with TickerProviderStateMixin {
                         ? Text(
                             getTranslated(context, "Not Selected Yet ...")!,
                           )
-                        : Text(selectedCatName!),
+                        : Text(selectedCatName.toString()),
                   ),
                 )
               ],
@@ -2160,7 +2160,7 @@ class _AddProductState extends State<AddProduct> with TickerProviderStateMixin {
                   width: 10,
                 ),
                 Text(
-                  model.name!,
+                  model.name.toString(),
                   style: TextStyle(
                     fontSize: 18,
                   ),

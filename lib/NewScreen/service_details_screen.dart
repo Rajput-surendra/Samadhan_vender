@@ -409,14 +409,14 @@ class _ServiceScreenDetailsState extends State<ServiceScreenDetails> {
                       ),
                     ),
                   ),
-                  Container(
-                    width: 100.w,
-                    height: 43.98.h,
-                    child: MapPage(
-                      SOURCE_LOCATION: LatLng(double.parse(model!.latitude.toString()),double.parse(model!.longitude.toString())),
-                      DEST_LOCATION: LatLng(double.parse(model!.sellerLat.toString()),double.parse(model!.sellerLng.toString())),
-                    ),
-                  ),
+                  // Container(
+                  //   width: 100.w,
+                  //   height: 43.98.h,
+                  //   child: MapPage(
+                  //     SOURCE_LOCATION: LatLng(double.parse(model!.latitude.toString()=="null"?"0.0":model!.latitude.toString()),double.parse(model!.longitude.toString()=="null"?"0.0":model!.longitude.toString())),
+                  //     DEST_LOCATION: LatLng(double.parse(model!.sellerLat.toString()=="null"?"0.0":model!.sellerLat.toString()),double.parse(model!.sellerLng.toString()=="null"?"0.0":model!.sellerLng.toString())),
+                  //   ),
+                  // ),
                   Container(
                     margin:
                         EdgeInsets.only(left: 8.33.w, right: 8.33.w, top: 1.87.h),
@@ -434,12 +434,13 @@ class _ServiceScreenDetailsState extends State<ServiceScreenDetails> {
                                 fontSize: 13.sp,
                                 fontFamily: fontBold,
                               ),
-                              text(
-                                  calculateDistance(double.parse(model!.latitude.toString()),double.parse(model!.longitude.toString()), double.parse(model!.sellerLat.toString()),double.parse(model!.sellerLng.toString())).toStringAsFixed(1)+"Km",
-                                textColor: Color(0xff13CE3F),
-                                fontSize: 13.sp,
-                                fontFamily: fontBold,
-                              ),
+                              // text(
+                              //     calculateDistance(double.parse(model!.latitude.toString()=="null"?"0.0":model!.latitude.toString()),double.parse(model!.longitude.toString()=="null"?"0.0":model!.longitude.toString()),
+                              //         double.parse(model!.sellerLat.toString()=="null"?"0.0":model!.sellerLat.toString()),double.parse(model!.sellerLng.toString()=="null"?"0.0":model!.sellerLng.toString())).toStringAsFixed(1)+"Km",
+                              //   textColor: Color(0xff13CE3F),
+                              //   fontSize: 13.sp,
+                              //   fontFamily: fontBold,
+                              // ),
                             ],
                           ),
                         ),

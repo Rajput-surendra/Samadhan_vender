@@ -585,6 +585,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     var parameter = {
       SellerId: CUR_USERID,
     };
+    print('____Som______${parameter}_________');
     apiBaseHelper.postAPICall(getCategoriesApi, parameter).then(
       (getdata) async {
         bool error = getdata["error"];

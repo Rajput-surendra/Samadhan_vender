@@ -489,7 +489,7 @@ class _LoginScreenState extends State<LoginScreen>
           mobile = data[Mobile];
           city = data[City];
           area = data[Area];
-          address = data[Address];
+          address = data['address'];
           pincode = data[Pincode];
           image = data[IMage];
           balance = data["balance"];
@@ -516,7 +516,7 @@ class _LoginScreenState extends State<LoginScreen>
             username!,
             email!,
             mobile!,
-            address!,
+            address.toString(),
             srorename!,
             storeurl!,
             storeDesc!,
@@ -533,10 +533,8 @@ class _LoginScreenState extends State<LoginScreen>
             storeLogo!,
           );
           setPrefrenceBool(isLogin, true);
-          Navigator.push(
-              context,
-              PageTransition(
-                child: BottomBar(),
+          Navigator.push(context, PageTransition(
+            child: BottomBar(),
                 type: PageTransitionType.rightToLeft,
                 duration: Duration(milliseconds: 500),
               ));

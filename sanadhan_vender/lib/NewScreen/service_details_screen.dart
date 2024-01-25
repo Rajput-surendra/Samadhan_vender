@@ -413,8 +413,8 @@ class _ServiceScreenDetailsState extends State<ServiceScreenDetails> {
                     width: 100.w,
                     height: 43.98.h,
                     child: MapPage(
-                      SOURCE_LOCATION: LatLng(double.parse(model!.latitude.toString()),double.parse(model!.longitude.toString())),
-                      DEST_LOCATION: LatLng(double.parse(model!.sellerLat.toString()),double.parse(model!.sellerLng.toString())),
+                     SOURCE_LOCATION: LatLng(double.parse(model!.latitude.toString()),double.parse(model!.longitude.toString())),
+                     DEST_LOCATION: LatLng(double.parse(model!.sellerLat.toString()),double.parse(model!.sellerLng.toString())),
                     ),
                   ),
                   Container(

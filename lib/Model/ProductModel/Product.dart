@@ -217,7 +217,7 @@ class ProductModel {
   String? warrantyPeriod;
   String? guaranteePeriod;
   String? madeIn;
-  int? availability;
+  dynamic availability;
   String? categoryName;
   String? taxPercentage;
   List<String>? reviewImages;
@@ -466,7 +466,7 @@ class Variants {
   String? sku;
   String? stock;
   List<String>? images;
-  int? availability;
+  dynamic availability;
   String? status;
   String? dateAdded;
   String? variantIds;

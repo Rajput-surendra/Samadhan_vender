@@ -652,12 +652,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             textColor: Color(0xff13CE3F),
                             fontSize: 10.sp,
                             fontFamily: fontRegular,
-                          ) : text(
-                      "Offline Mode",
-                      textColor: Colors.red,
-                      fontSize: 10.sp,
-                      fontFamily: fontRegular,
-                    ),
+                               )
+                              : text(
+                            "Offline Mode",
+                            textColor: Colors.red,
+                            fontSize: 10.sp,
+                             fontFamily: fontRegular,
+                            ),
                           SizedBox(
                             width: 3.05.w,
                           ),
@@ -666,7 +667,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               value: isSwitched,
                               onChanged: (val){
                                 setState(() {
-                                  isSwitched=val;
+                                  isSwitched = val;
                                 });
                                   updateSellerStatus();
                           }),
@@ -703,9 +704,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           } on Exception catch (_) {}
                       return InkWell(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                              ServiceScreenDetails(id: item!.id.toString(),))
-                          );
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ServiceScreenDetails(id: item!.id.toString(),)));
                         },
                         child: Container(
                           width: 93.33.w,
@@ -1070,7 +1069,7 @@ class _HomeScreenState extends State<HomeScreen> {
       'open_close_status': isSwitched?"1":"0",
       'user_id': '$CUR_USERID'
     });
-
+     print('____Som______${request.fields}_________');
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();

@@ -966,7 +966,8 @@ class _OrderHistoryDetailsState extends State<OrderHistoryDetails> {
                           ),
                         ) : SizedBox(),*/
 
-                        model!.itemList![0].activeStatus!=DELIVERD?Center(
+                        model!.itemList![0].activeStatus!=DELIVERD?
+                        Center(
                           child: AnimatedContainer(
                             duration: Duration(milliseconds: 500),
                             curve: Curves.easeInOut,
@@ -1018,8 +1019,7 @@ class _OrderHistoryDetailsState extends State<OrderHistoryDetails> {
                             width: 55.69.w,
                             height: 4.37.h,
                             child: Center(
-                              child: text(
-                                "Delivery Status",
+                              child: text("Delivery Status",
                                 textColor: Color(0xff8A8787),
                                 fontSize: 14.sp,
                                 fontFamily: fontBold,

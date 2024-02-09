@@ -129,7 +129,7 @@ class Order_Model {
       driverfcm: parsedJson['driverfcm'],
       driverfuid: parsedJson['driverfuid'],
       driveremail: parsedJson['driveremail'],
-      drivername: parsedJson['drivername'],
+      drivername: parsedJson['delivery_boy_name'],
       username: parsedJson['username'],
       userfuid: parsedJson['userfuid'],
       userfcm_id: parsedJson['userfcm_id'],

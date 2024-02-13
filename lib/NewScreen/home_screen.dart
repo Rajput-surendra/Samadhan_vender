@@ -47,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
   DateTime endDate = DateTime.now();
   String? start, end;
   bool _isNetworkAvail = true;
+  int status = 0;
   AnimationController? buttonController;
   String _searchText = "", _lastsearch = "";
   int scrollOffset = 0;
@@ -143,6 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
     scrollController = ScrollController(keepScrollOffset: true);
     scrollController!.addListener(_transactionscrollListener);
     chartList = {0: dayData(), 1: weekData(), 2: monthData()};
+    getCheckStatusApi();
     getFid();
     getSaveDetail();
     getStatics();
@@ -239,9 +241,9 @@ class _HomeScreenState extends State<HomeScreen> {
             var pan_number = data[panNumber];
             var status = data[STATUS];
             var storeLogo = data[StoreLogo];
-            setState(() {
-              isSwitched = data["permissions"]["open_close_status"]=="1"?true:false;
-            });
+            // setState(() {
+            //   isSwitched = data["permissions"][" status"]=="1"?true:false;
+            // });
             print("bank name : $bankName");
             saveUserDetail(
               id!,
@@ -604,6 +606,35 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Color((randomDouble * 0xFFFFFF).toInt()).withOpacity(1.0);
   }
+  getCheckStatusApi() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final userId = prefs.getString('userId');
+    var headers = {
+      'Cookie': 'ci_session=2747e6c4d835602c8ddba0682c7ea48a33b6856c'
+    };
+    var request = http.MultipartRequest('POST', Uri.parse('${baseUrl}online_ofline_status'));
+    request.fields.addAll({
+      'user_id': userId.toString()
+    });
+
+    request.headers.addAll(headers);
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      var result  = await response.stream.bytesToString();
+      var finalResult =  jsonDecode(result);
+      print('finalResult__________${finalResult}_________');
+      setState(() {
+        status=int.parse(finalResult["data"].toString());
+        print('____Som______${status}_________');
+      });
+      // Fluttertoast.showToast(msg: "${finalResult['']}");
+    }
+    else {
+      print(response.reasonPhrase);
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -644,36 +675,90 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontSize: 14.sp,
                       fontFamily: fontBold,
                     ),
-                    Container(
-                      child: Row(
+
+                    Center(
+                      child:   Row(
                         children: [
-                          isSwitched ? text(
-                            "Online Mode",
-                            textColor: Color(0xff13CE3F),
-                            fontSize: 10.sp,
-                            fontFamily: fontRegular,
-                               )
-                              : text(
-                            "Offline Mode",
-                            textColor: Colors.red,
-                            fontSize: 10.sp,
-                             fontFamily: fontRegular,
-                            ),
-                          SizedBox(
-                            width: 3.05.w,
+                          SizedBox(width: 5,),
+                          Text(
+                            status == 1 ? 'Online Mode' : 'Offline Mode',
+                            style: TextStyle(fontSize: 15,color:status == 0 ? Colors.red:Colors.green ),
                           ),
-                          Switch.adaptive(
-                              activeColor: Colors.green,
-                              value: isSwitched,
-                              onChanged: (val){
-                                setState(() {
-                                  isSwitched = val;
-                                });
-                                  updateSellerStatus();
-                          }),
+                          Switch(
+                            activeColor: Colors.green,
+                            inactiveTrackColor: Colors.red,
+                            value: status == 1,
+                            onChanged: (value) {
+                              setState(() {
+                                status = value ? 1 : 0;
+                                updateSellerStatus(status);
+                              });
+                            },
+                          ),
+
+
                         ],
                       ),
+
+
+                      // Row(
+                      //   children: [
+                      //     SizedBox(width: 8,),
+                      //     isOnline
+                      //         ? const Text(
+                      //       "Online",
+                      //       style: TextStyle(color: Colors.green),
+                      //     )
+                      //         : const Text(
+                      //       "Offline",
+                      //       style: TextStyle(color: Colors.red),
+                      //     ),
+                      //     const SizedBox(
+                      //       width: 2,
+                      //     ),
+                      //     Switch.adaptive(
+                      //         activeColor: Colors.green,
+                      //         inactiveTrackColor: Colors.red,
+                      //         value: isOnline,
+                      //         onChanged: (val) {
+                      //           setState(() {
+                      //             isOnline = val;
+                      //             getUserStatusOnlineOrOffline();
+                      //           });
+                      //         }),
+                      //   ],
+                      // ),
                     ),
+                    // Container(
+                    //   child: Row(
+                    //     children: [
+                    //       isSwitched ? text(
+                    //         "Online Mode",
+                    //         textColor: Color(0xff13CE3F),
+                    //         fontSize: 10.sp,
+                    //         fontFamily: fontRegular,
+                    //            )
+                    //           : text(
+                    //         "Offline Mode",
+                    //         textColor: Colors.red,
+                    //         fontSize: 10.sp,
+                    //          fontFamily: fontRegular,
+                    //         ),
+                    //       SizedBox(
+                    //         width: 3.05.w,
+                    //       ),
+                    //       Switch.adaptive(
+                    //           activeColor: Colors.green,
+                    //           value: isSwitched,
+                    //           onChanged: (val){
+                    //             setState(() {
+                    //               isSwitched = val;
+                    //             });
+                    //               updateSellerStatus();
+                    //       }),
+                    //     ],
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
@@ -687,7 +772,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     firstHeader(),
                     // secondHeader(),
                     // thirdHeader(),
-                    isSwitched?
+                    status == 1?
                     orderList.length>0?ListView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
@@ -1063,10 +1148,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return null;
   }
 
-  Future updateSellerStatus() async{
+  Future updateSellerStatus(status) async{
     var request = http.MultipartRequest('POST', updateSellerStatusApi);
     request.fields.addAll({
-      'open_close_status': isSwitched?"1":"0",
+      'status':status.toString(),
       'user_id': '$CUR_USERID'
     });
      print('____Som______${request.fields}_________');
